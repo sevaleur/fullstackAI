@@ -1,12 +1,14 @@
 'use client'
 
+import Spinner from "./Spinner"
+
 import { updateEntry } from "@/utils/api"
 import { useState } from "react"
 import { useAutosave } from "react-autosave"
 
 const Editor = ({ entry }) => {
   const [ value, setValue ] = useState(entry.content)
-  const [ isLoading, setIsLoading ] = useState(false)
+  const [ isSaving, setIsSaving ] = useState(false)
   const [ analysis, setAnalysis ] = useState(entry.analysis)
 
   const { mood, summary, color, subject, negative } = analysis
@@ -21,17 +23,23 @@ const Editor = ({ entry }) => {
   useAutosave({
     data: value, 
     onSave: async (_value) => {
-      setIsLoading(true)
+      setIsSaving(true)
       const data = await updateEntry(entry.id, _value)
       setAnalysis(data.analysis)
-      setIsLoading(false)
+      setIsSaving(false)
     }
   })
 
   return (
-    <div className="w-full h-full grid grid-cols-3">
+    <div className="w-full h-full grid grid-cols-3 gap-0 relative">
+      <div className="absolute left-0 top-0 p-2">
+        {isSaving ? (
+          <Spinner />
+        ) : (
+          <div className="w-[16px] h-[16px] rounded-full bg-green-500"></div>
+        )}
+      </div>
       <div className="col-span-2">
-        { isLoading && <div>...loading</div> }
         <textarea 
           className="w-full h-full p-8 text-xl outline-none"
           value={value} 

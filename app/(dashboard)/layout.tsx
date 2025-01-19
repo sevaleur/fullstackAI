@@ -2,7 +2,7 @@ import { UserButton } from "@clerk/nextjs"
 import Link from "next/link"
 
 const links = [
-  { href: '/', label: 'Home' }, 
+  { href: '/dashboard', label: 'Dashboard' }, 
   { href: '/journal', label: 'Journal' }
 ]
 

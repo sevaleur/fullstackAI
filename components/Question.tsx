@@ -1,5 +1,7 @@
 'use client'
 
+import Spinner from "./Spinner"
+
 import { askQuestion } from "@/utils/api"
 import { useState } from "react"
 
@@ -24,7 +26,7 @@ const Question = () => {
   }
 
   return (
-    <div>
+    <div className="relative">
       <form onSubmit={ handleSubmit }>
         <input 
           disabled={ loading }
@@ -32,7 +34,7 @@ const Question = () => {
           onChange={ onChange } 
           type="text" 
           placeholder="Ask a question"
-          className="border border-black/20 px-4 py-2 text-lg rounded-lg"
+          className="border border-black/20 px-6 py-2 text-lg rounded-lg mr-4"
         />
         <button 
           disabled={ loading }
@@ -41,8 +43,16 @@ const Question = () => {
           Ask
         </button>
       </form>
-      { loading && ( <div>...loading</div> ) }
-      { response && ( <div> { response } </div> ) }
+      <div className="absolute left-0 top-0 p-2">
+        { loading ? (
+          <Spinner />
+        ) : (
+          <div className="w-[16px] h-[16px] rounded-full bg-green-500"></div>
+        )}
+      </div>
+      <div className="whitespace-wrap w-[50rem]">
+        { response && ( <div> { response } </div> ) }
+      </div>
     </div>
   )
 }

@@ -4,7 +4,7 @@ import { auth } from '@clerk/nextjs/server'
 
 export default async function Home() {
   const { userId, redirectToSignIn } = await auth()
-  let href = userId ? '/journal' : '/new-user'
+  let href = userId ? '/dashboard' : '/new-user'
 
   return (
     <div className="w-screen h-screen bg-black flex justify-center items-center text-white">

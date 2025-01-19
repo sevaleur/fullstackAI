@@ -1,6 +1,6 @@
 const EntryCard = ({ entry }) => {
   const date = new Date(entry.createdAt).toDateString()
-  const { summary, mood } = entry
+  const { summary, mood } = entry.analysis
   console.log(entry)
   return (
     <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
